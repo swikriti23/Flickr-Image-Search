@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var Flickr = require("flickrapi"),
     flickrOptions = {
-      api_key: "fd276bf94a511c0da666387ae3509ea1",
-      secret: "de40624e243cd262"
+      api_key: "your_key",
+      secret: "your_secret"
     };
 
 
