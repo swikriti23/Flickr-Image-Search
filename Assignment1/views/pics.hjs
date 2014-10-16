@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+	<title>Flcikr Image Search</title>
+
+	<!-- Set the viewport width to device width for mobile -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  	<!-- IE compatibility mode -->
+  	<meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1" />
+
+	<!-- Included Bootstrap CSS Files -->
+	<link rel="stylesheet" href="rwm_coffebreak/js/bootstrap/css/bootstrap.min.css" />
+
+	<!-- Includes FontAwesome -->
+	<link rel="stylesheet" href="rwm_coffebreak/css/font-awesome/css/font-awesome.min.css" />
+	
+	<!-- Css -->	
+	<link rel="stylesheet" href="rwm_coffebreak/css/template.css" />
+	<link rel="stylesheet" href="rwm_coffebreak/css/default.css" />
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div class="cover"></div>
+
+	
+	<nav class="smartscroll-nav">
+		<ul>
+			<li><a href="/" class="buttonSwikriti">HOME</a></li>
+		</ul>
+	</nav>
+
+	<section id="one" class="section bg2">
+		<div class="container">
+				<h1 style="font-family: 'Fredericka the Great', cursive;font-size:6em;color: #FFFFFF" class="text-center">Images</h1>
+				<br/>
+				<div id="ok" class="row">
+					<form id="hform" method="post">
+						<input type="hidden" id="url" name="url" value={{url}}/>
+						<input type="hidden" id="user" name="user" value={{user}}/>
+						<input type="hidden" name="submit" id="submit" onclick="firstDisplay()"/>
+					</form>
+					<div class="row"> </div>
+				</div>
+			<br/><br/>
+			<button id="more" style="font-family: 'Fredericka the Great', cursive;text-align: center; position: relative; left: 38%;width:250px" class="form-group btn btn-default text-center" onclick= "morePics()">More</button>
+		
+	<script type="text/javascript">	
+
+		window.onload = validateForm();
+		
+		var arrayLength;
+		var displayed;
+		var res;
+		var usesplit;
+		function validateForm() {
+			document.getElementById("submit").click();
+		}
+			
+		function firstDisplay() {
+		var url = document.getElementById("url").value;
+		var user = document.getElementById("user").value;
+		usesplit = user.split(',');
+		res = url.split(',');
+		arrayLength = res.length;
+
+		if (arrayLength >= 10) {
+			displayed = 10;
+			dispPhotos(0, 10);
+		}
+		else{
+			displayed = arrayLength;
+			dispPhotos(0, arrayLength);		
+			}
+		}
+
+		function dispPhotos(start, end) {
+
+		for (var i = start; i < end; i++) {
+
+				var divi = document.createElement("div");
+				divi.setAttribute('id', 'divs'+i);
+				divi.setAttribute('class', 'text-center');
+				var gnt = document.getElementById("ok");
+				$(divi).insertAfter(gnt.lastChild);
+
+				var href = document.createElement("a");
+			 	href.setAttribute('href', res[i]);
+	            href.setAttribute('id', 'ref'+i);
+				var gnt1 = document.getElementById('divs'+i);
+				gnt1.insertBefore(href, gnt1.firstChild);
+	
+			 	var img = document.createElement("img");
+			 	img.setAttribute('id', 'image'+i);
+	            img.setAttribute('src', res[i]);
+	            var generateHere = document.getElementById('ref'+i);
+	            generateHere.insertBefore(img, generateHere.firstChild);
+
+	            linebreak = document.createElement("br");
+            	$(linebreak).insertAfter(gnt1.lastChild);
+
+            	var element = document.createElement('div');
+            	element.class = "row";
+            	$(element).insertAfter(gnt1.lastChild);
+
+
+				var a = document.createElement('a');
+				var linkText = document.createTextNode(usesplit[i]);
+				a.appendChild(linkText);
+				a.class = 'text-center';
+				a.href= usesplit[i];
+				a.setAttribute('style', 'font-family: Fredericka the Great, cursive; font-weight: bold; font-size:1.4em; color: Black');
+				$(a).insertAfter(gnt1.lastChild);  
+
+				linebreak = document.createElement("br");
+            	$(linebreak).insertAfter(gnt.lastChild);
+
+            	var element = document.createElement('div');
+            	element.class = "row";
+            	$(element).insertAfter(gnt.lastChild);
+
+
+			}
+		}
+
+
+			window.morePics = function() {
+			
+			var left = arrayLength-displayed;
+			if (left==0) {
+				$("#more").html('No more Photos');
+				$('#more').prop('disabled', true);
+			}
+			else if(left >= 10) {
+				dispPhotos(displayed, displayed+10);
+				displayed = displayed + 10;
+			}
+			else if (left > 0 && left < 10) {
+				dispPhotos(displayed, arrayLength);
+				displayed = arrayLength;
+			}
+
+			}
+		
+	</script>
+		</div>
+	</section>
+
+
+	 <nav class="smartscroll-controls visible-lg">
+	 	<a href="#" class="prev scroll"></a>
+	 	<a href="#" class="next scroll"></a>
+	 </nav>
+
+	 <a href="#" class="smartscroll-totop"></a>
+
+	<!-- jQuery include -->
+	<script src="rwm_coffebreak/js/jquery-2.1.0.min.js"></script>
+	<!-- Include all compiled Bootstrap plugins -->
+	<script src="rwm_coffebreak/js/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+	<script src="rwm_coffebreak/js/respond.min.js"></script>
+
+	<script src="rwm_coffebreak/js/jquery.smartscroll.js"></script>
+
+	<script src="rwm_coffebreak/js/script.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$(document).smartscroll({fullscreen: false, controls: true});
+		});
+	</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
